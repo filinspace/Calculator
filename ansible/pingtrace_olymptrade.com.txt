@@ -1,0 +1,29 @@
+Client Information:
+IP: 5.18.153.66
+Region: St.-Petersburg
+Country: RU
+Model: arm64
+Provider: AS41733 JSC "ER-Telecom Holding"
+
+---------- Ping and Traceroute ----------
+PING olymptrade.com (104.19.166.79): 56 data bytes
+64 bytes from 104.19.166.79: icmp_seq=0 ttl=58 time=24.493 ms
+64 bytes from 104.19.166.79: icmp_seq=1 ttl=58 time=19.448 ms
+64 bytes from 104.19.166.79: icmp_seq=2 ttl=58 time=20.365 ms
+64 bytes from 104.19.166.79: icmp_seq=3 ttl=58 time=19.530 ms
+
+--- olymptrade.com ping statistics ---
+4 packets transmitted, 4 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 19.448/20.959/24.493/2.072 ms
+ 1  10.8.0.1 (10.8.0.1)  19.553 ms  19.487 ms  18.874 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  104.19.166.79 (104.19.166.79)  20.555 ms  21.380 ms  20.632 ms
+
+---------- Certificate Information ----------
+subject=C=US, ST=California, L=San Francisco, O=Cloudflare, Inc., CN=olymptrade.com
+issuer=C=US, O=Cloudflare, Inc., CN=Cloudflare Inc ECC CA-3
+notBefore=Aug 18 00:00:00 2023 GMT
+notAfter=Aug 16 23:59:59 2024 GMT

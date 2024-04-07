@@ -1,0 +1,2 @@
+ ansible-playbook -i ./hosts ./testplay.yml --check --diff
+ ansible-playbook -i olymptrade/inventories/devbox/hosts-se olymptrade/plays/devbox/stop-all-services.yml --check --diff

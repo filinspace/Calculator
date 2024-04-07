@@ -1,0 +1,29 @@
+---
+- name: Проверить статус сервиса
+  become: yes
+  hosts: boxes
+  vars:
+    services_to_check:
+      - name: wookiee
+      - name: trade-client_mcagg_aollikus
+      - name: dredd.service
+  tasks:
+    - name: роверить статус каждого сервиса
+      systemd:
+        name: "{{ item.name }}"
+        state: started
+      register: service_status
+      ignore_errors: yes
+      loop: "{{ services_to_check }}"
+      loop_control:
+        label: "{{ item.name }}"
+      no_log: true
+    - name: Вывести статус сервиса
+      debug:
+        msg: "Статус сервиса {{ item.item.name }}: {{ item.results[0].status.ActiveState }}"
+      loop: "{{ service_status.results }}"
+      when: item.item is defined and item.results[0].status is defined
+      no_log: true
+    - name: Debug output for item
+      debug:
+        var: item

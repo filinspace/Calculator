@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+      - name: Остановить службу qrator-proxy
+        ansible.builtin.systemd:
+          name: kafka.service
+          state: stop
+          masked: yes

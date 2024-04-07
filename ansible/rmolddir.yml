@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Определение самых старых директорий
+      ansible.builtin.find:
+        path: /data/releases/olymptrade.com-static-pages/se.devbox307.tech/cdn/
+        file_type: directory
+      register: old_dirs
+    - name: Сортировка директорий по времени последнего изменения (старые впереди)
+      set_fact:
+        sorted_dirs: "{{ old_dirs.files | sort(attribute='mtime') }}"
+    - name: Удаление всех директорий, кроме самой новой
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: absent
+      loop: "{{ sorted_dirs[:-2] }}"
+
+
