@@ -53,7 +53,7 @@ services:
       - '--storage.path=/alertmanager'
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor
+    image: zcube/cadvisor
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
