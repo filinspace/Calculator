@@ -5,6 +5,7 @@ networks:
 
 volumes:
   prometheus_data: {}
+  grafana-storage: {}
 
 services:
   grafana:
@@ -15,7 +16,7 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - '$PWD/data:/var/lib/grafana'
+      - grafana-storage:/var/lib/grafana
 
   node-exporter:
     image: prom/node-exporter:latest
