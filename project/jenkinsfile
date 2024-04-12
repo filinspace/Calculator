@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://gitlab.com/owl2/monitoring'
+            }
+        }
+
+        stage('Build and Run Docker Compose') {
+            steps {
+                sh 'docker-compose up -d'
+            }
+        }
+
+        // Добавьте другие этапы, такие как тестирование, деплоймент и т.д.
+    }
+
+    post {
+        always {
+            // Добавьте шаг для остановки контейнеров после выполнения Pipeline
+            sh 'docker-compose down'
+        }
+    }
+}
