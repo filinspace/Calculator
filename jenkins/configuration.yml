@@ -1,0 +1,8 @@
+<!-- Настройки Jenkins -->
+<jenkins>
+    <!-- Пример настроек -->
+    <numExecutors>2</numExecutors>
+    <mode>NORMAL</mode>
+    <useSecurity>true</useSecurity>
+    <!-- Другие настройки -->
+</jenkins>
