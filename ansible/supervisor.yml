@@ -5,4 +5,4 @@
       - name: Перезапустить супервизор
         ansible.builtin.systemd:
           name: supervisor.service
-          state: reload
+          state: reloaded
