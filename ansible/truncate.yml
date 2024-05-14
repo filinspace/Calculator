@@ -1,0 +1,6 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+      - name: truncate log file
+        command: truncate -s 100M /tmp/php_olymp_errors.log
