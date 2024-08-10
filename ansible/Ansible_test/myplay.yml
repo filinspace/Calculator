@@ -1,0 +1,12 @@
+- name: Test Playbook
+  hosts: local
+  tasks:
+    - name: Create a directory
+      file:
+        path: /Users/d.filin/TEACH/knowledge/Absible_test
+        state: directory
+
+    - name: Create a file
+      copy:
+        dest: /Users/d.filin/TEACH/knowledge/Absible_test/hello.txt
+        content: "Hello, World!"
