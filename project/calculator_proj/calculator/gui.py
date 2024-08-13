@@ -1,21 +1,20 @@
 import tkinter as tk
-from calculator.operations import CalculatorOperations
 
 class CalculatorApp:
-    def __init__(self):
-        self.root = tk.Tk()
-        self.root.title("Simple Calculator")
-        self.operations = CalculatorOperations()
-        self.create_widgets()
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Calculator")
+        self.root.resizable(True, True)
 
-    def create_widgets(self):
-        self.result_var = tk.StringVar()
+        # Настройка сетки для растягивания
+        self.root.columnconfigure(0, weight=1)
+        self.root.rowconfigure(0, weight=1)
 
-        # Entry to show result
-        self.result_entry = tk.Entry(self.root, textvariable=self.result_var, font=("Arial", 18), justify='right')
-        self.result_entry.grid(row=0, column=0, columnspan=4)
+        # Экран калькулятора
+        self.screen = tk.Entry(root, justify='right', font=('Arial', 18), bd=10, insertwidth=2)
+        self.screen.grid(row=0, column=0, columnspan=4, sticky="nsew")
 
-        # Buttons
+        # Настройка сетки кнопок
         buttons = [
             '7', '8', '9', '/',
             '4', '5', '6', '*',
@@ -27,23 +26,33 @@ class CalculatorApp:
         col = 0
         for button in buttons:
             action = lambda x=button: self.on_button_click(x)
-            b = tk.Button(self.root, text=button, width=5, height=2, command=action)
-            b.grid(row=row, column=col)
-
+            btn = tk.Button(root, text=button, padx=20, pady=20, font=('Arial', 18), command=action)
+            btn.grid(row=row, column=col, sticky="nsew")
             col += 1
             if col > 3:
                 col = 0
                 row += 1
 
+        # Настройка столбцов и строк для растягивания
+        for i in range(4):
+            self.root.columnconfigure(i, weight=1)
+            self.root.rowconfigure(i + 1, weight=1)
+
     def on_button_click(self, char):
         if char == '=':
-            expression = self.result_var.get()
-            result = self.operations.evaluate(expression)
-            self.result_var.set(result)
+            try:
+                result = str(eval(self.screen.get()))
+                self.screen.delete(0, tk.END)
+                self.screen.insert(tk.END, result)
+            except:
+                self.screen.delete(0, tk.END)
+                self.screen.insert(tk.END, "Error")
         else:
-            current_text = self.result_var.get()
-            new_text = current_text + char
-            self.result_var.set(new_text)
+            current_text = self.screen.get()
+            self.screen.delete(0, tk.END)
+            self.screen.insert(tk.END, current_text + char)
 
-    def run(self):
-        self.root.mainloop()
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = CalculatorApp(root)
+    root.mainloop()
