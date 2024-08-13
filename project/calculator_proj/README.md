@@ -9,7 +9,7 @@ This is a simple calculator application built using Python and tkinter.
 3. Run the program using the command:
 
    ```sh
-   python main.py
+   python3 main.py
    ```
 
 ### 3. **Запуск программы**
@@ -22,5 +22,5 @@ This is a simple calculator application built using Python and tkinter.
 4. Запустите программу командой:
 
    ```sh
-   python main.py
+   python3 main.py
    ```
