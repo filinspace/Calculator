@@ -1,20 +1,15 @@
-stages:
-  - security
-
 container_scanning:
   stage: security
   image:
     name: docker:stable
   services:
     - docker:stable-dind
-  variables:
-    DOCKER_DRIVER: overlay2
   script:
     - docker pull debian:bookworm-20211201
-    - echo "Snyk scanning not enabled yet"  # Placeholder; Replace with actual Snyk command if available
+    - trivy image debian:bookworm-20211201
   artifacts:
     reports:
       container_scanning: gl-container-scanning-report.json
   tags:
-    - docker
+    - macos
 
