@@ -1,24 +1,17 @@
 stages:
-  - build
-  - test
   - security
-  - deploy
 
 variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: "/certs"
-  DOCKER_HOST: tcp://docker:2376
-  DOCKER_TLS_VERIFY: "1"
-  DOCKER_CERT_PATH: "/certs/client"
-
+  # Настройка аутентификации Docker
+  DOCKER_AUTH_CONFIG: '{"auths":{"https://index.docker.io/v1/":{"username":"$DOCKER_USERNAME","password":"$DOCKER_PASSWORD"}}}'
+  
 container_scanning:
   stage: security
   image: docker:stable
   services:
     - docker:dind
   script:
-    - echo "Checking Docker daemon"
-    - curl --unix-socket /var/run/docker.sock http://localhost/_ping
+    - echo "$DOCKER_AUTH_CONFIG" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker info
     - docker pull debian:bookworm-20211201
     - trivy image debian:bookworm-20211201
@@ -27,3 +20,4 @@ container_scanning:
       container_scanning: gl-container-scanning-report.json
   tags:
     - macos
+
