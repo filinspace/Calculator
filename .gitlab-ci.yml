@@ -1,0 +1,29 @@
+stages:
+  - build
+  - test
+  - security
+
+# Этап сборки образа
+build:
+  stage: build
+  script:
+    - docker build -t my-image:latest .
+  tags:
+    - docker
+
+# Этап сканирования образа на уязвимости
+container_scanning:
+  stage: security
+  image:
+    name: docker:stable
+  services:
+    - docker:stable-dind
+  variables:
+    DOCKER_DRIVER: overlay2
+  script:
+    - docker pull my-image:latest
+  artifacts:
+    reports:
+      container_scanning: gl-container-scanning-report.json
+  tags:
+    - docker
