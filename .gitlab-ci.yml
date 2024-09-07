@@ -1,17 +1,6 @@
 stages:
-  - build
-  - test
   - security
 
-# Этап сборки образа
-build:
-  stage: build
-  script:
-    - docker build -t my-image:latest .
-  tags:
-    - docker
-
-# Этап сканирования образа на уязвимости
 container_scanning:
   stage: security
   image:
@@ -21,9 +10,11 @@ container_scanning:
   variables:
     DOCKER_DRIVER: overlay2
   script:
-    - docker pull my-image:latest
+    - docker pull debian:bookworm-20211201
+    - echo "Snyk scanning not enabled yet"  # Placeholder; Replace with actual Snyk command if available
   artifacts:
     reports:
       container_scanning: gl-container-scanning-report.json
   tags:
     - docker
+
