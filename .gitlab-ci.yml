@@ -1,3 +1,9 @@
+stages:
+  - build
+  - test
+  - security
+  - deploy
+
 container_scanning:
   stage: security
   image:
@@ -12,4 +18,3 @@ container_scanning:
       container_scanning: gl-container-scanning-report.json
   tags:
     - macos
-
