@@ -1,0 +1,40 @@
+stages:
+  - install
+  - test
+  - lint
+  - deploy
+
+variables:
+  # Здесь можно указать переменные окружения, если они нужны
+  PYTHON_VERSION: "3.9"
+
+before_script:
+  - python --version
+  - pip install --upgrade pip
+  - pip install -r requirements.txt
+
+install_dependencies:
+  stage: install
+  script:
+    - echo "Dependencies installed"
+
+lint_code:
+  stage: lint
+  image: python:$PYTHON_VERSION
+  script:
+    - pip install pylint
+    - pylint *.py
+
+run_tests:
+  stage: test
+  image: python:$PYTHON_VERSION
+  script:
+    - echo "No tests to run"
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploy script can be added here"
+
+# Обратите внимание, что артефакты, тесты и деплой — это необязательные этапыа
+# и могут быть настроены в зависимости от вашего рабочего процесса и требований
