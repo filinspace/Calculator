@@ -2,9 +2,7 @@ stages:
   - security
 
 variables:
-  # Настройка аутентификации Docker
   DOCKER_AUTH_CONFIG: '{"auths":{"https://index.docker.io/v1/":{"username":"$DOCKER_USERNAME","password":"$DOCKER_PASSWORD"}}}'
-  # Указываем Docker Daemon
   DOCKER_HOST: tcp://docker:2375
   DOCKER_DRIVER: overlay2
 
@@ -12,7 +10,8 @@ container_scanning:
   stage: security
   image: docker:stable
   services:
-    - docker:dind
+    - name: docker:dind
+      command: ["--privileged"]
   script:
     - echo "$DOCKER_AUTH_CONFIG" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker info
