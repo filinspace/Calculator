@@ -4,13 +4,17 @@ stages:
   - security
   - deploy
 
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"
+
 container_scanning:
   stage: security
-  image:
-    name: docker:stable
+  image: docker:stable
   services:
-    - docker:stable-dind
+    - docker:dind
   script:
+    - docker info
     - docker pull debian:bookworm-20211201
     - trivy image debian:bookworm-20211201
   artifacts:
@@ -18,3 +22,4 @@ container_scanning:
       container_scanning: gl-container-scanning-report.json
   tags:
     - macos
+
