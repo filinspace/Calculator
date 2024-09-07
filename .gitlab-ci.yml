@@ -4,7 +4,10 @@ stages:
 variables:
   # Настройка аутентификации Docker
   DOCKER_AUTH_CONFIG: '{"auths":{"https://index.docker.io/v1/":{"username":"$DOCKER_USERNAME","password":"$DOCKER_PASSWORD"}}}'
-  
+  # Указываем Docker Daemon
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
 container_scanning:
   stage: security
   image: docker:stable
@@ -20,4 +23,3 @@ container_scanning:
       container_scanning: gl-container-scanning-report.json
   tags:
     - macos
-
