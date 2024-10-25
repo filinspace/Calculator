@@ -1,16 +1,27 @@
 stages:
   - check
 
-variables:
-  # Указываем версию Python, если это необходимо
-  PYTHON_VERSION: "3.9"
-
-check_formatting:
+# Джоба для проверки в папке all/all
+check_all:
   stage: check
-  image: python:$PYTHON_VERSION
+  image: python:3.9
   script:
-    - echo "Checking for disallowed characters in files..."
-    - if grep -q '[}]' *.md; then echo "Disallowed characters found"; exit 1; else echo "No disallowed characters found"; fi
-  
-  # Успешно завершится, если не найдено запрещенных символов
+    - echo "Checking for disallowed characters in all/all..."
+    - if grep -q '[}]' all/all/*.md; then echo "Disallowed characters found in all/all"; exit 1; else echo "No disallowed characters found in all/all"; fi
+
+# Джоба для проверки в папке project/calculator_proj
+check_calculator_proj:
+  stage: check
+  image: python:3.9
+  script:
+    - echo "Checking for disallowed characters in project/calculator_proj..."
+    - if grep -q '[}]' project/calculator_proj/*.md; then echo "Disallowed characters found in project/calculator_proj"; exit 1; else echo "No disallowed characters found in project/calculator_proj"; fi
+
+# Джоба для проверки символов в корневой папке проекта
+check_root:
+  stage: check
+  image: python:3.9
+  script:
+    - echo "Checking for disallowed characters in root directory..."
+    - if grep -q '[}]' *.md; then echo "Disallowed characters found in root directory"; exit 1; else echo "No disallowed characters found in root directory"; fi
 
