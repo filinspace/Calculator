@@ -341,3 +341,5 @@ git checkout main           # переключаемся на main
 git reset HEAD~ --hard        # сдвигаем указатель main на 1 коммит назад
 git checkout new-branch       # переключаемся обратно на новую и продолжаем работу
 ```
+
+TEST MR
