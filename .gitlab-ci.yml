@@ -7,7 +7,7 @@ check_all:
   image: python:3.9
   script:
     - echo "Checking for disallowed characters in all/all..."
-    - if grep -q '[}]' all/all/*.md; then echo "Disallowed characters found in all/all"; exit 1; else echo "No disallowed characters found in all/all"; fi
+    - if grep -q -H '[}]' all/all/*.md; then echo "Disallowed characters found in files:"; grep -l '[}]' all/all/*.md; exit 1; else echo "No disallowed characters found in all/all"; fi
 
 # Джоба для проверки в папке project/calculator_proj
 check_calculator_proj:
@@ -15,7 +15,7 @@ check_calculator_proj:
   image: python:3.9
   script:
     - echo "Checking for disallowed characters in project/calculator_proj..."
-    - if grep -q '[}]' project/calculator_proj/*.md; then echo "Disallowed characters found in project/calculator_proj"; exit 1; else echo "No disallowed characters found in project/calculator_proj"; fi
+    - if grep -q -H '[}]' project/calculator_proj/*.md; then echo "Disallowed characters found in files:"; grep -l '[}]' project/calculator_proj/*.md; exit 1; else echo "No disallowed characters found in project/calculator_proj"; fi
 
 # Джоба для проверки символов в корневой папке проекта
 check_root:
@@ -23,5 +23,5 @@ check_root:
   image: python:3.9
   script:
     - echo "Checking for disallowed characters in root directory..."
-    - if grep -q '[}]' *.md; then echo "Disallowed characters found in root directory"; exit 1; else echo "No disallowed characters found in root directory"; fi
+    - if grep -q -H '[}]' *.md; then echo "Disallowed characters found in files:"; grep -l '[}]' *.md; exit 1; else echo "No disallowed characters found in root directory"; fi
 
