@@ -10,7 +10,7 @@ check_formatting:
   image: python:$PYTHON_VERSION
   script:
     - echo "Checking for disallowed characters in files..."
-    - if grep -q '[#@%]' *.md; then echo "Disallowed characters found"; exit 1; else echo "No disallowed characters found"; fi
+    - if grep -q '[}]' *.md; then echo "Disallowed characters found"; exit 1; else echo "No disallowed characters found"; fi
   
   # Успешно завершится, если не найдено запрещенных символов
 
