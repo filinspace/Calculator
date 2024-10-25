@@ -1,40 +1,16 @@
 stages:
-  - install
-  - test
-  - lint
-  - deploy
+  - check
 
 variables:
-  # Здесь можно указать переменные окружения, если они нужны
+  # Указываем версию Python, если это необходимо
   PYTHON_VERSION: "3.9"
 
-before_script:
-  - python --version
-  - pip install --upgrade pip
-  - pip install -r requirements.txt
-
-install_dependencies:
-  stage: install
-  script:
-    - echo "Dependencies installed"
-
-lint_code:
-  stage: lint
+check_formatting:
+  stage: check
   image: python:$PYTHON_VERSION
   script:
-    - pip install pylint
-    - pylint *.py
+    - echo "Checking for disallowed characters in files..."
+    - if grep -q '[#@%]' *.md; then echo "Disallowed characters found"; exit 1; else echo "No disallowed characters found"; fi
+  
+  # Успешно завершится, если не найдено запрещенных символов
 
-run_tests:
-  stage: test
-  image: python:$PYTHON_VERSION
-  script:
-    - echo "No tests to run"
-
-deploy:
-  stage: deploy
-  script:
-    - echo "Deploy script can be added here"
-
-# Обратите внимание, что артефакты, тесты и деплой — это необязательные этапыа
-# и могут быть настроены в зависимости от вашего рабочего процесса и требований
