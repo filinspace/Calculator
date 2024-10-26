@@ -1,4 +1,4 @@
-hook TEST mmm
+hook TEST mmmrr
 # Шпаргалка по командам Git
 
 ## Кратко про Git
