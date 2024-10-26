@@ -1,4 +1,5 @@
-ffff hook dddTEST mmmrr
+new test
+
 # Шпаргалка по командам Git
 
 ## Кратко про Git
