@@ -1,40 +1,27 @@
 stages:
-  - install
-  - test
-  - lint
-  - deploy
+  - check
 
-variables:
-  # Здесь можно указать переменные окружения, если они нужны
-  PYTHON_VERSION: "3.9"
-
-before_script:
-  - python --version
-  - pip install --upgrade pip
-  - pip install -r requirements.txt
-
-install_dependencies:
-  stage: install
+# Джоба для проверки в папке all/all
+check_all:
+  stage: check
+  image: python:3.9
   script:
-    - echo "Dependencies installed"
+    - echo "Checking for disallowed characters in all/all..."
+    - if grep -q -H '[}]' all/all/*.md; then echo "Disallowed characters found in files:"; grep -l '[}]' all/all/*.md; exit 1; else echo "No disallowed characters found in all/all"; fi
 
-lint_code:
-  stage: lint
-  image: python:$PYTHON_VERSION
+# Джоба для проверки в папке project/calculator_proj
+check_calculator_proj:
+  stage: check
+  image: python:3.9
   script:
-    - pip install pylint
-    - pylint *.py
+    - echo "Checking for disallowed characters in project/calculator_proj..."
+    - if grep -q -H '[}]' project/calculator_proj/*.md; then echo "Disallowed characters found in files:"; grep -l '[}]' project/calculator_proj/*.md; exit 1; else echo "No disallowed characters found in project/calculator_proj"; fi
 
-run_tests:
-  stage: test
-  image: python:$PYTHON_VERSION
+# Джоба для проверки символов в корневой папке проекта
+check_root:
+  stage: check
+  image: python:3.9
   script:
-    - echo "No tests to run"
+    - echo "Checking for disallowed characters in root directory..."
+    - if grep -q -H '[}]' *.md; then echo "Disallowed characters found in files:"; grep -l '[}]' *.md; exit 1; else echo "No disallowed characters found in root directory"; fi
 
-deploy:
-  stage: deploy
-  script:
-    - echo "Deploy script can be added here"
-
-# Обратите внимание, что артефакты, тесты и деплой — это необязательные этапыа
-# и могут быть настроены в зависимости от вашего рабочего процесса и требований
