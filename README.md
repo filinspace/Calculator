@@ -1,4 +1,4 @@
-new test
+test reb
 
 # Шпаргалка по командам Git
 
