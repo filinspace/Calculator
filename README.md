@@ -1,4 +1,4 @@
-jdbfjsbfRELEASE
+RELea
 # Шпаргалка по командам Git
 
 ## Кратко про Git
