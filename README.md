@@ -1,4 +1,5 @@
-RELea
+RELease
+sdkfjs
 # Шпаргалка по командам Git
 
 ## Кратко про Git
